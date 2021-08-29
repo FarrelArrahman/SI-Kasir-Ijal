@@ -25,7 +25,10 @@ class TransaksiAPIController extends Controller
         	'id_transaksi' => 'TSB' . today()->format('dmy') . sprintf('%04d', $transaksi),
         ];
 
-        return response()->json(['data' => $data]);
+        return response()->json([
+        	'message' => 'ID transaksi terbaru',
+        	'data' => $data
+        ]);
     }
 
     public function getBarangTransaksi($transaksi)
@@ -40,7 +43,10 @@ class TransaksiAPIController extends Controller
         	$data['transaksi'] = new TransaksiResource($transaksi);
         }
 
-        return response()->json(['data' => $data]);
+        return response()->json([
+        	'message' => 'Daftar barang transaksi',
+        	'data' => $data
+        ]);
     }
 
     public function addBarangTransaksi(Request $request, $transaksi)
@@ -65,20 +71,41 @@ class TransaksiAPIController extends Controller
     		'unit' => $request->unit
     	]);
 
-    	return response()->json(['data' => 
-    		[
-    			'transaksi' => $transaksi,
-    			'detailTransaksi' => $transaksi->detailTransaksi
-    		]
+    	return response()->json([
+    		'message' => 'Barang berhasil ditambahkan'
+    	]);
+    }
+
+    public function editBarangTransaksi(Request $request, $transaksi)
+    {
+    	// return response()->json(['data' => $request->all()]);
+    	$transaksi = Transaksi::find($transaksi);
+    	$detailTransaksi = DetailTransaksi::find($request->detail_transaksi);
+
+    	if($detailTransaksi) {
+    		$barang = $detailTransaksi->barang;
+
+    		$barang->update([
+	    		'nama_barang' => $request->nama_barang,
+	    		'harga_jual' => $request->harga_jual,
+	    		'harga_modal' => $request->harga_modal,
+	    	]);
+
+	    	$detailTransaksi->update([
+	    		'unit' => $request->unit
+	    	]);
+    	}
+
+    	return response()->json([
+    		'message' => 'Detail transaksi berhasil diubah',
+    		'data' => null,
     	]);
     }
 
     public function deleteBarangTransaksi(Request $request, $transaksi)
     {
-    	// return response()->json(['data' => $request->all()]);
-
     	$transaksi = Transaksi::find($transaksi);
-    	$detailTransaksi = DetailTransaksi::find($request->detailTransaksi);
+    	$detailTransaksi = DetailTransaksi::find($request->detail_transaksi);
 
     	if($detailTransaksi) {
     		$barang = $detailTransaksi->barang;
@@ -86,11 +113,9 @@ class TransaksiAPIController extends Controller
     		$barang->delete();
     	}
 
-    	return response()->json(['data' => 
-    		[
-    			'transaksi' => $transaksi,
-    			'detailTransaksi' => $transaksi->detailTransaksi
-    		]
+    	return response()->json([
+    		'message' => 'Detail transaksi sudah terhapus',
+    		'data' => null,
     	]);
     }
 
@@ -125,6 +150,9 @@ class TransaksiAPIController extends Controller
         	'keuntungan_bersih_rp'	=> "Rp. " . number_format($keuntunganBersih, 0, '', '.'),
         ];
 
-        return response()->json(['data' => $data]);
+        return response()->json([
+        	'message' => 'Data harga transaksi',
+        	'data' => $data
+        ]);
     }
 }

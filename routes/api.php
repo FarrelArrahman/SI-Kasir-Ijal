@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function() {
 	Route::get('/transaksi/id', [TransaksiAPIController::class, 'getIdTransaksi'])->name('id_transaksi');
 	Route::get('/transaksi/{transaksi}', [TransaksiAPIController::class, 'getBarangTransaksi'])->name('get_barang_transaksi');
 	Route::post('/transaksi/{transaksi}', [TransaksiAPIController::class, 'addBarangTransaksi'])->name('add_barang_transaksi');
+	Route::put('/transaksi/{transaksi}', [TransaksiAPIController::class, 'editBarangTransaksi'])->name('edit_barang_transaksi');
 	Route::get('/harga/{transaksi}', [TransaksiAPIController::class, 'getHargaTransaksi'])->name('get_harga_transaksi');
-	Route::delete('/transaksi/{transaksi}/{barang}', [TransaksiAPIController::class, 'deleteBarangTransaksi'])->name('delete_barang_transaksi');
+	Route::delete('/transaksi/{transaksi}', [TransaksiAPIController::class, 'deleteBarangTransaksi'])->name('delete_barang_transaksi');
 });

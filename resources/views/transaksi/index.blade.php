@@ -224,6 +224,7 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+        var isEditingMode = false;
         var URLIdTransaksi = "{{ route('id_transaksi') }}"
 
         async function getIdTransaksi(url) {
@@ -269,7 +270,7 @@
             var el = ""
 
             $('#barang_transaksi').empty()
-            if(transaksi.transaksi.detail == null) {
+            if(jQuery.isEmptyObject(transaksi.transaksi.detail)) {
                 el += "<tr>"
                 el += "<td align='center' colspan='7'>Tidak ada barang dalam transaksi ini.</td>"
                 el += "</tr>"
@@ -279,12 +280,12 @@
                     el += "<tr id='row" + no + "'>"
                     el += "<td align='center'>" + no + "</td>"
                     el += "<td align='center'>" + item.tanggal + "</td>"
-                    el += "<td><input readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.nama_barang + "'></td>"
-                    el += "<td><input readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_modal_rp + "'></td>"
-                    el += "<td><input readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_jual_rp + "'></td>"
-                    el += "<td><input readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.unit + "'></td>"
+                    el += "<td><input id='edit-nama-barang-row" + no + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.nama_barang + "'></td>"
+                    el += "<td><input id='edit-harga-modal-row" + no + "' data-harga-modal='" + item.harga_modal + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_modal_rp + "'></td>"
+                    el += "<td><input id='edit-harga-jual-row" + no + "' data-harga-jual='" + item.harga_jual + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_jual_rp + "'></td>"
+                    el += "<td><input id='edit-unit-row" + no + "' readonly type='number' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.unit + "'></td>"
                     el += "<td>"
-                    el += "<button data-row='row" + no + "' class='btn btn-sm btn-warning edit-barang'>Edit</button> <button data-row='row" + no + "' class='btn btn-sm btn-danger hapus-barang'>Hapus</button>"
+                    el += "<button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-warning edit-barang'>Edit</button> <button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-danger hapus-barang'>Hapus</button>"
                     el += "</td>"
                     el += "</tr>"
                     no++
@@ -348,6 +349,30 @@
             .catch(err => console.log(err))
         }
 
+        async function editBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, detailTransaksi) {
+            var id_transaksi = await getIdTransaksi(URLIdTransaksi)
+            var url = "{{ route('edit_barang_transaksi', '') }}/" + id_transaksi
+
+            let _data = {
+                _token: "{{ csrf_token() }}",
+                id_transaksi: id_transaksi,
+                nama_barang: namaBarang,
+                harga_jual: hargaJual,
+                harga_modal: hargaModal,
+                unit: unit,
+                detail_transaksi: detailTransaksi
+            }
+
+            fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify(_data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .catch(err => console.log(err))
+        }
+
         async function deleteBarangTransaksi(detailTransaksi) {
             var id_transaksi = await getIdTransaksi(URLIdTransaksi)
             var url = "{{ route('delete_barang_transaksi', '') }}/" + id_transaksi
@@ -387,22 +412,53 @@
             $('#namaBarang').val("")
             $('#hargaJual').val("")
             $('#hargaModal').val("")
-            $('#unit').val("")
+            $('#unit').val(1)
         }
 
         $('#barang_transaksi').on('click', '.edit-barang', async function(e) {
+            isEditingMode = !isEditingMode
+            var detailTransaksi = $(this).data('detail-transaksi')
+
+            if(!isEditingMode) {
+                var namaBarang = $('#edit-nama-barang-' + $(this).data('row')).val()
+                var hargaJual = $('#edit-harga-jual-' + $(this).data('row')).val()
+                var hargaModal = $('#edit-harga-modal-' + $(this).data('row')).val()
+                var unit = $('#edit-unit-' + $(this).data('row')).val()
+
+                await editBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, detailTransaksi)
+                setBarangTransaksi()
+                setHargaTransaksi()
+            }
+
             // alert($(this).data('row'))
             $('.' + $(this).data('row')).toggleClass('form-control-plaintext form-control')
             var isReadOnly = $('.' + $(this).data('row')).prop('readonly')
             $('.' + $(this).data('row')).prop('readonly', !isReadOnly)
+
+            var edit_harga_modal = $('#edit-harga-modal-' + $(this).data('row'))
+            var edit_harga_jual = $('#edit-harga-jual-' + $(this).data('row'))
+            
+            var tmrp = edit_harga_modal.val()
+            var tm = edit_harga_modal.data('harga-modal')
+
+            var tjrp = edit_harga_jual.val()
+            var tj = edit_harga_jual.data('harga-jual')
+
+            edit_harga_modal.val(tm)
+            edit_harga_modal.data('harga-modal', tmrp)
+
+            edit_harga_jual.val(tj)
+            edit_harga_jual.data('harga-jual', tjrp)
+            // console.log(tmrp)
         })
 
         $('#barang_transaksi').on('click', '.hapus-barang', async function(e) {
-            // alert($(this).data('row'))
             var detailTransaksi = $(this).data('detail-transaksi')
+            // alert(detailTransaksi)
             $('#' + $(this).data('row')).remove()
             deleteBarangTransaksi(detailTransaksi)
             setBarangTransaksi()
+            setHargaTransaksi()
         })
 
         setIdTransaksi()
