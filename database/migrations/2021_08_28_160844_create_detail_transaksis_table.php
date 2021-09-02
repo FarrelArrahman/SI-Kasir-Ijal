@@ -16,7 +16,7 @@ class CreateDetailTransaksisTable extends Migration
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id();
             $table->string('id_transaksi');
-            $table->foreign('id_transaksi')->references('id')->on('transaksi');
+            $table->foreign('id_transaksi')->references('id')->on('transaksi')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang')->constrained('barang');
             $table->integer('unit');
         });

@@ -136,7 +136,7 @@
 
                                 <div class="col-sm-4">
                                     <label for="tanggal" class="form-label">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal" placeholder="" value="{{ today()->format('Y-m-d') }}" required>
+                                    <input type="date" class="form-control-plaintext fs-6" readonly="" id="tanggal" placeholder="" value="{{ $transaksi->tanggal->format('Y-m-d') }}" required>
                                 </div>
 
                                 <div class="col-sm-5">
@@ -236,7 +236,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <button id="simpan" class="btn btn-success float-end">Simpan</button>
+                        <!-- <button id="simpan" class="btn btn-success float-end">Simpan</button> -->
                         <button data-bs-toggle="modal" data-bs-target="#modalInputDataPembeli" style="margin-right: 5px" class="btn btn-warning float-end">Data Pembeli</button>
                     </div>
                 </div>
@@ -287,21 +287,9 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var isEditingMode = false;
-            var tanggal = $("#tanggal").val()
 
-            async function getIdTransaksi(url) {
-                var url = "{{ route('id_transaksi') }}/" + tanggal
-                try {
-                    let response = await fetch(url)
-
-                    if(response.status === 200) {
-                        let result = await response.json()
-                        return result.data.id_transaksi
-                    }
-
-                } catch (error) {
-                    console.log(error)
-                }
+            async function getIdTransaksi() {
+                return "{{ $transaksi->id }}"
             }
 
             async function setIdTransaksi(date) {
@@ -559,7 +547,7 @@
                 setIdTransaksi(tanggal)
                 setBarangTransaksi()
                 setHargaTransaksi()
-                clearDataPembeli()
+                setDataPembeli()
             }
 
             $('#addBarangTransaksi').on('submit', async function(e) {
@@ -661,16 +649,6 @@
             setBarangTransaksi()
             setHargaTransaksi()
             setDataPembeli()
-
-            $('#tanggal').on('change', function() {
-                console.log("ID Transaksi Diubah")
-                tanggal = $(this).val()
-                console.log(tanggal)
-                setIdTransaksi(tanggal)
-                setBarangTransaksi()
-                setHargaTransaksi()
-                setDataPembeli()
-            })
         })
     </script>
     </body>

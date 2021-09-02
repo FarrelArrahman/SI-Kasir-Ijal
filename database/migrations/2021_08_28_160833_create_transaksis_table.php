@@ -17,6 +17,9 @@ class CreateTransaksisTable extends Migration
             $table->string('id');
             $table->primary('id');
             $table->date('tanggal');
+            $table->string('nama_pembeli', 100)->nullable();
+            $table->string('no_telp', 15)->nullable();
+            $table->text('alamat')->nullable();
             $table->string('status', 20);
             $table->timestamps();
         });
