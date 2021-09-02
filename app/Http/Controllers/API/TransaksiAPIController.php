@@ -7,6 +7,8 @@ use App\Models\Barang;
 use App\Models\Transaksi;
 use App\Models\DetailTransaksi;
 use App\Http\Resources\TransaksiResource;
+use App\Http\Resources\PembeliResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransaksiAPIController extends Controller
@@ -28,6 +30,27 @@ class TransaksiAPIController extends Controller
         return response()->json([
         	'message' => 'ID transaksi terbaru',
         	'data' => $data
+        ]);
+    }
+
+    public function getIdTransaksiByTanggal($tanggal)
+    {
+        $date = Carbon::parse($tanggal);
+        $transaksi = Transaksi::where('tanggal', $date)->latest()->first();
+
+        if($transaksi && $transaksi->status == "Pending") {
+            $transaksi = Transaksi::where('tanggal', $date)->count();
+        } else {
+            $transaksi = Transaksi::where('tanggal', $date)->count() + 1;
+        }
+        
+        $data = [
+            'id_transaksi' => 'TSB' . $date->format('dmy') . sprintf('%04d', $transaksi),
+        ];
+
+        return response()->json([
+            'message' => 'ID transaksi terbaru pada tanggal ' . $tanggal,
+            'data' => $data
         ]);
     }
 
@@ -59,7 +82,7 @@ class TransaksiAPIController extends Controller
     		'harga_modal' => $request->harga_modal,
     	]);
 
-    	$transaksi = Transaksi::find($transaksi) ?? Transaksi::create([
+    	$transaksi = Transaksi::find($request->id_transaksi) ?? Transaksi::create([
     		'id' => $request->id_transaksi,
     		'tanggal' => $request->tanggal,
     		'status' => 'Pending'
@@ -74,6 +97,53 @@ class TransaksiAPIController extends Controller
     	return response()->json([
     		'message' => 'Barang berhasil ditambahkan'
     	]);
+    }
+
+    public function getDataPembeli($transaksi)
+    {
+        $data = [
+            'pembeli' => NULL,
+        ];
+
+        $transaksi = Transaksi::find($transaksi);
+        
+        if($transaksi) {
+            $data['pembeli'] = new PembeliResource($transaksi);
+        }
+
+        return response()->json([
+            'message' => 'Data pembeli',
+            'data' => $data
+        ]);
+    }
+
+    public function saveDataPembeli(Request $request, $transaksi)
+    {
+        // return response()->json(['data' => $request->all()]);
+
+        $transaksi = Transaksi::find($request->id_transaksi);
+
+        if($transaksi) {
+            $transaksi->update([
+                'nama_pembeli' => $request->nama_pembeli,
+                'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
+            ]);
+
+        } else {
+            Transaksi::create([
+                'id' => $request->id_transaksi,
+                'tanggal' => $request->tanggal,
+                'nama_pembeli' => $request->nama_pembeli,
+                'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
+                'status' => 'Pending'
+            ]);
+        } 
+
+        return response()->json([
+            'message' => 'Data pembeli berhasil disimpan'
+        ]);
     }
 
     public function editBarangTransaksi(Request $request, $transaksi)
@@ -117,6 +187,45 @@ class TransaksiAPIController extends Controller
     		'message' => 'Detail transaksi sudah terhapus',
     		'data' => null,
     	]);
+    }
+
+    public function simpanTransaksi(Request $request, $transaksi)
+    {
+    	// return response()->json(['data' => $request->all()]);
+    	$transaksi = Transaksi::find($transaksi);
+
+    	if($transaksi) {
+	    	$transaksi->update([
+	    		'status' => 'Success'
+	    	]);
+    	}
+
+    	return response()->json([
+    		'message' => 'Transaksi berhasil disimpan',
+    		'data' => $transaksi,
+    	]);
+    }
+
+    public function deleteTransaksi($transaksi)
+    {
+        // return response()->json(['data' => $request->all()]);
+        $transaksi = Transaksi::find($transaksi);
+
+        if($transaksi) {
+            $id_barang = [];
+            foreach($transaksi->detailTransaksi as $value) {
+                $id_barang[] = $value->id_barang;
+            }
+
+            $transaksi->detailTransaksi()->delete();
+            $barang = Barang::whereIn('id', $id_barang)->delete();
+            $transaksi->delete();
+        }
+
+        return response()->json([
+            'message' => 'Transaksi berhasil dihapus',
+            'data' => $transaksi,
+        ]);
     }
 
     public function getHargaTransaksi($transaksi)
