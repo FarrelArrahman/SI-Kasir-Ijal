@@ -373,18 +373,18 @@
                     $('#total_modal').text(laporan.total_modal)
                     $('#total_pemasukan').text(laporan.total_pemasukan)
                     $('#total_pemasukan_kotor').text(laporan.total_harga)
-                    $('#total_kas_besar').val(laporan.total_kas_besar)
-                    $('#sisa_utang_modal').val(laporan.sisa_utang_modal)
-                    $('#pembagian1').val(laporan.pembagian1)
-                    $('#pembagian2').val(laporan.pembagian2)
+                    $('#total_kas_besar').text(laporan.total_kas_besar)
+                    $('#sisa_utang_modal').text(laporan.sisa_utang_modal)
+                    $('#pembagian1').text(laporan.pembagian1)
+                    $('#pembagian2').text(laporan.pembagian2)
                 } else {
                     $('#total_modal').text("Rp. 0")
                     $('#total_pemasukan').text("Rp. 0")
                     $('#total_pemasukan_kotor').text("Rp. 0")
-                    $('#total_kas_besar').val("Rp. 0")
-                    $('#sisa_utang_modal').val("Rp. 0")
-                    $('#pembagian1').val("Rp. 0")
-                    $('#pembagian2').val("Rp. 0")
+                    $('#total_kas_besar').text("Rp. 0")
+                    $('#sisa_utang_modal').text("Rp. 0")
+                    $('#pembagian1').text("Rp. 0")
+                    $('#pembagian2').text("Rp. 0")
                 }
             }
 
