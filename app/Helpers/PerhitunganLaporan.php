@@ -11,6 +11,8 @@ class PerhitunganLaporan {
 	public $totalPengeluaran = 0;
 	public $totalKasBesar = 0;
 	public $sisaUtangModal = 0;
+	public $pembagian1 = 0;
+	public $pembagian2 = 0;
 
 	public function handle($data)
 	{
@@ -27,6 +29,8 @@ class PerhitunganLaporan {
 			'total_pengeluaran' => $this->convertToRp($this->getTotalPengeluaran()),
 			'total_kas_besar' => $this->convertToRp($this->getTotalKasBesar()),
 			'sisa_utang_modal' => $this->convertToRp($this->getSisaUtangModal()),
+			'pembagian1' => $this->convertToRp($this->getPembagian1()),
+			'pembagian2' => $this->convertToRp($this->getPembagian2()),
 		];
 	}
 
@@ -71,6 +75,16 @@ class PerhitunganLaporan {
 	public function getSisaUtangModal()
 	{
 		return $this->sisaUtangModal;
+
+	}
+	public function getPembagian1()
+	{
+		return $this->totalPemasukan * 0.6;
+	}
+
+	public function getPembagian2()
+	{
+		return $this->totalPemasukan * 0.4;
 	}
 
 	public function convertToRp($nominal)

@@ -161,16 +161,16 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Modal</td>
+                                    <td>Pemasukan Kotor</td>
+                                    <td id="total_pemasukan_kotor" width="30%" scope="col">Rp. 0</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Modal</td>
                                     <td id="total_modal" width="30%" scope="col">Rp. 0</td>
                                 </tr>
                                 <tr>
-                                    <td>Total Pemasukan</td>
+                                    <td>Pemasukan Bersih</td>
                                     <td id="total_pemasukan">Rp. 0</td>
-                                </tr>
-                                <tr>
-                                    <td>Total Pengeluaran</td>
-                                    <td id="total_pengeluaran">Rp. 0</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -182,12 +182,12 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Total Kas Besar</td>
-                                    <td id="total_kas_besar" width="30%" scope="col">Rp. 0</td>
+                                    <td>Pembagian 1 60%</td>
+                                    <td id="pembagian1" width="30%" scope="col">Rp. 0</td>
                                 </tr>
                                 <tr>
-                                    <td>Sisa Utang Modal</td>
-                                    <td id="sisa_utang_modal">Rp. 0</td>
+                                    <td>Pembagian 2 40%</td>
+                                    <td id="pembagian2">Rp. 0</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -372,15 +372,19 @@
                 if( ! jQuery.isEmptyObject(laporan)) {    
                     $('#total_modal').text(laporan.total_modal)
                     $('#total_pemasukan').text(laporan.total_pemasukan)
-                    $('#total_pengeluaran').text(laporan.total_pengeluaran)
+                    $('#total_pemasukan_kotor').text(laporan.total_harga)
                     $('#total_kas_besar').val(laporan.total_kas_besar)
                     $('#sisa_utang_modal').val(laporan.sisa_utang_modal)
+                    $('#pembagian1').val(laporan.pembagian1)
+                    $('#pembagian2').val(laporan.pembagian2)
                 } else {
                     $('#total_modal').text("Rp. 0")
                     $('#total_pemasukan').text("Rp. 0")
-                    $('#total_pengeluaran').text("Rp. 0")
+                    $('#total_pemasukan_kotor').text("Rp. 0")
                     $('#total_kas_besar').val("Rp. 0")
                     $('#sisa_utang_modal').val("Rp. 0")
+                    $('#pembagian1').val("Rp. 0")
+                    $('#pembagian2').val("Rp. 0")
                 }
             }
 
