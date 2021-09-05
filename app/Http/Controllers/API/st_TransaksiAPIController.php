@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Barang;
-use App\Models\Transaksi;
-use App\Models\DetailTransaksi;
-use App\Http\Resources\TransaksiResource;
-use App\Http\Resources\PembeliResource;
+use App\Models\st_Barang;
+use App\Models\st_Transaksi;
+use App\Models\st_DetailTransaksi;
+use App\Http\Resources\st_TransaksiResource;
+use App\Http\Resources\st_PembeliResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TransaksiAPIController extends Controller
+class st_TransaksiAPIController extends Controller
 {
     public function getIdTransaksi()
     {
-    	$transaksi = Transaksi::where('tanggal', today())->latest()->first();
+    	$transaksi = st_Transaksi::where('tanggal', today())->latest()->first();
 
     	if($transaksi && $transaksi->status == "Pending") {
-    		$transaksi = Transaksi::where('tanggal', today())->count();
+    		$transaksi = st_Transaksi::where('tanggal', today())->count();
     	} else {
-    		$transaksi = Transaksi::where('tanggal', today())->count() + 1;
+    		$transaksi = st_Transaksi::where('tanggal', today())->count() + 1;
     	}
         
         $data = [
@@ -36,12 +36,12 @@ class TransaksiAPIController extends Controller
     public function getIdTransaksiByTanggal($tanggal)
     {
         $date = Carbon::parse($tanggal);
-        $transaksi = Transaksi::where('tanggal', $date)->latest()->first();
+        $transaksi = st_Transaksi::where('tanggal', $date)->latest()->first();
 
         if($transaksi && $transaksi->status == "Pending") {
-            $transaksi = Transaksi::where('tanggal', $date)->count();
+            $transaksi = st_Transaksi::where('tanggal', $date)->count();
         } else {
-            $transaksi = Transaksi::where('tanggal', $date)->count() + 1;
+            $transaksi = st_Transaksi::where('tanggal', $date)->count() + 1;
         }
         
         $data = [
@@ -60,10 +60,10 @@ class TransaksiAPIController extends Controller
         	'transaksi' => NULL,
         ];
 
-    	$transaksi = Transaksi::find($transaksi);
+    	$transaksi = st_Transaksi::find($transaksi);
         
         if($transaksi) {
-        	$data['transaksi'] = new TransaksiResource($transaksi);
+        	$data['transaksi'] = new st_TransaksiResource($transaksi);
         }
 
         return response()->json([
@@ -76,19 +76,19 @@ class TransaksiAPIController extends Controller
     {
     	// return response()->json(['data' => $request->all()]);
 
-    	$barang = Barang::create([
+    	$barang = st_Barang::create([
     		'nama_barang' => $request->nama_barang,
-    		'harga_jual' => $request->harga_jual,
-    		'harga_modal' => $request->harga_modal,
+    		'harga_jual' => str_replace(".", "", $request->harga_jual),
+            'harga_modal' => str_replace(".", "", $request->harga_modal),
     	]);
 
-    	$transaksi = Transaksi::find($request->id_transaksi) ?? Transaksi::create([
+    	$transaksi = st_Transaksi::find($request->id_transaksi) ?? st_Transaksi::create([
     		'id' => $request->id_transaksi,
     		'tanggal' => $request->tanggal,
     		'status' => 'Pending'
     	]);
 
-    	$detailTransaksi = DetailTransaksi::create([
+    	$detailTransaksi = st_DetailTransaksi::create([
     		'id_transaksi' => $transaksi->id,
     		'id_barang' => $barang->id,
     		'unit' => $request->unit
@@ -105,10 +105,10 @@ class TransaksiAPIController extends Controller
             'pembeli' => NULL,
         ];
 
-        $transaksi = Transaksi::find($transaksi);
+        $transaksi = st_Transaksi::find($transaksi);
         
         if($transaksi) {
-            $data['pembeli'] = new PembeliResource($transaksi);
+            $data['pembeli'] = new st_PembeliResource($transaksi);
         }
 
         return response()->json([
@@ -121,7 +121,7 @@ class TransaksiAPIController extends Controller
     {
         // return response()->json(['data' => $request->all()]);
 
-        $transaksi = Transaksi::find($request->id_transaksi);
+        $transaksi = st_Transaksi::find($request->id_transaksi);
 
         if($transaksi) {
             $transaksi->update([
@@ -131,7 +131,7 @@ class TransaksiAPIController extends Controller
             ]);
 
         } else {
-            Transaksi::create([
+            st_Transaksi::create([
                 'id' => $request->id_transaksi,
                 'tanggal' => $request->tanggal,
                 'nama_pembeli' => $request->nama_pembeli,
@@ -149,16 +149,16 @@ class TransaksiAPIController extends Controller
     public function editBarangTransaksi(Request $request, $transaksi)
     {
     	// return response()->json(['data' => $request->all()]);
-    	$transaksi = Transaksi::find($transaksi);
-    	$detailTransaksi = DetailTransaksi::find($request->detail_transaksi);
+    	$transaksi = st_Transaksi::find($transaksi);
+    	$detailTransaksi = st_DetailTransaksi::find($request->detail_transaksi);
 
     	if($detailTransaksi) {
     		$barang = $detailTransaksi->barang;
 
     		$barang->update([
 	    		'nama_barang' => $request->nama_barang,
-	    		'harga_jual' => $request->harga_jual,
-	    		'harga_modal' => $request->harga_modal,
+	    		'harga_jual' => str_replace(".", "", $request->harga_jual),
+                'harga_modal' => str_replace(".", "", $request->harga_modal),
 	    	]);
 
 	    	$detailTransaksi->update([
@@ -174,8 +174,8 @@ class TransaksiAPIController extends Controller
 
     public function deleteBarangTransaksi(Request $request, $transaksi)
     {
-    	$transaksi = Transaksi::find($transaksi);
-    	$detailTransaksi = DetailTransaksi::find($request->detail_transaksi);
+    	$transaksi = st_Transaksi::find($transaksi);
+    	$detailTransaksi = st_DetailTransaksi::find($request->detail_transaksi);
 
     	if($detailTransaksi) {
     		$barang = $detailTransaksi->barang;
@@ -192,7 +192,7 @@ class TransaksiAPIController extends Controller
     public function simpanTransaksi(Request $request, $transaksi)
     {
     	// return response()->json(['data' => $request->all()]);
-    	$transaksi = Transaksi::find($transaksi);
+    	$transaksi = st_Transaksi::find($transaksi);
 
     	if($transaksi) {
 	    	$transaksi->update([
@@ -209,7 +209,7 @@ class TransaksiAPIController extends Controller
     public function deleteTransaksi($transaksi)
     {
         // return response()->json(['data' => $request->all()]);
-        $transaksi = Transaksi::find($transaksi);
+        $transaksi = st_Transaksi::find($transaksi);
 
         if($transaksi) {
             $id_barang = [];
@@ -218,7 +218,7 @@ class TransaksiAPIController extends Controller
             }
 
             $transaksi->detailTransaksi()->delete();
-            $barang = Barang::whereIn('id', $id_barang)->delete();
+            $barang = st_Barang::whereIn('id', $id_barang)->delete();
             $transaksi->delete();
         }
 
@@ -232,7 +232,7 @@ class TransaksiAPIController extends Controller
     {
     	$data = null;
 
-    	$transaksi = Transaksi::find($transaksi);
+    	$transaksi = st_Transaksi::find($transaksi);
     	
     	if( ! $transaksi || ! $transaksi->detailTransaksi) {
     		return response()->json($data);

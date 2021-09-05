@@ -168,10 +168,71 @@
                 </div>
             </main>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalDetailTransaksi" tabindex="-1" aria-labelledby="modalDetailTransaksiLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="save_data_pembeli">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetailTransaksiLabel">Detail Transaksi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="nama_pembeli" class="col-form-label">Nama</label>
+                                <p id="nama_pembeli" class="fs-5">-</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="no_telp" class="col-form-label">No Telp</label>
+                                <p id="no_telp" class="fs-5">-</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="alamat" class="col-form-label">Alamat</label>
+                                <p id="alamat" class="fs-5">-</p>
+                            </div>                            
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%" scope="col">#</th>
+                                            <th width="10%" scope="col">Date</th>
+                                            <th width="42.5%" scope="col">Nama Barang</th>
+                                            <th width="17.5%" scope="col">Harga Modal</th>
+                                            <th width="17.5%" scope="col">Harga Jual</th>
+                                            <th width="7.5%" scope="col">Unit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="barang_transaksi">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
+        $('#pengeluaran').hide()
+        $('#table_pengeluaran').hide()
+        
         $(document).ready(function() {
-            $('#pengeluaran').hide()
-            $('#table_pengeluaran').hide()
             var month = $('#month').val()
             var year = $('#year').val()
             var type = $('#type').val()

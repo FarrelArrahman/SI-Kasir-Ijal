@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class PerhitunganLaporan {
+class st_PerhitunganLaporan {
 
 	public $data;
 	public $totalModal = 0;

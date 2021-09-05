@@ -5,24 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaksi extends Model
+class st_Barang extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaksi';
+    protected $table = 'barang';
     public $primaryKey = 'id';
-    public $incrementing = false;
-    public $dates = [
-        'tanggal'
-    ];
 
     protected $fillable = [
-        'id',
-        'tanggal',
-        'nama_pembeli',
-        'no_telp',
-        'alamat',
-        'status',
+        'nama_barang',
+        'harga_jual',
+        'harga_modal',
     ];
 
     /**
@@ -42,9 +35,4 @@ class Transaksi extends Model
     protected $casts = [
         // 
     ];
-
-    public function detailTransaksi()
-    {
-        return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
-    }
 }

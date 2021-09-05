@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class PerhitunganTransaksi {
+class st_PerhitunganTransaksi {
 
 	public $data;
 	public $totalHarga = 0;

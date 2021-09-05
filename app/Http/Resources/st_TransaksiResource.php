@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\st_DetailTransaksiResource;
 
-class PembeliResource extends JsonResource
+class st_TransaksiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +17,9 @@ class PembeliResource extends JsonResource
     {
         return [
             'id_transaksi'      => $this->id,
-            'nama_pembeli'      => $this->nama_pembeli,
-            'no_telp'           => $this->no_telp,
-            'alamat'            => $this->alamat,
+            'tanggal_transaksi' => $this->tanggal,
+            'status'            => $this->status,
+            'detail'            => st_DetailTransaksiResource::collection($this->detailTransaksi),
         ];
     }
 }

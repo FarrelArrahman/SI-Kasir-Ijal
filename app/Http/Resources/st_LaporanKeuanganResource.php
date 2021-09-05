@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Helpers\PerhitunganLaporan;
 
-class LaporanKeuanganResource extends JsonResource
+class st_LaporanKeuanganResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

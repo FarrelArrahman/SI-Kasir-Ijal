@@ -32,7 +32,7 @@
                                     <label for="hargaJual" class="form-label">Harga Jual</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text">Rp.</span>
-                                        <input type="text" class="form-control" id="hargaJual" placeholder="" required>
+                                        <input type="text" class="money form-control" id="hargaJual" placeholder="" required>
                                     </div>
                                 </div>
 
@@ -40,7 +40,7 @@
                                     <label for="hargaModal" class="form-label">Harga Modal</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text">Rp.</span>
-                                        <input type="text" class="form-control" id="hargaModal" placeholder="" required>
+                                        <input type="text" class="money form-control" id="hargaModal" placeholder="" required>
                                     </div>
                                 </div>
 
@@ -158,7 +158,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="btn-save-pembeli">Simpan</button>
                 </div>
                 </form>
             </div>
@@ -168,6 +168,8 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.money').mask('000.000.000', {reverse: true});
+
             var isEditingMode = false;
 
             async function getIdTransaksi() {
@@ -220,8 +222,8 @@
                         el += "<td align='center'>" + no + "</td>"
                         el += "<td align='center'>" + item.tanggal + "</td>"
                         el += "<td><input id='edit-nama-barang-row" + no + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.nama_barang + "'></td>"
-                        el += "<td><input id='edit-harga-modal-row" + no + "' data-harga-modal='" + item.harga_modal + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_modal_rp + "'></td>"
-                        el += "<td><input id='edit-harga-jual-row" + no + "' data-harga-jual='" + item.harga_jual + "' readonly type='text' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_jual_rp + "'></td>"
+                        el += "<td><input id='edit-harga-modal-row" + no + "' data-harga-modal='" + item.harga_modal + "' readonly type='text' class='money form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_modal_rp + "'></td>"
+                        el += "<td><input id='edit-harga-jual-row" + no + "' data-harga-jual='" + item.harga_jual + "' readonly type='text' class='money form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_jual_rp + "'></td>"
                         el += "<td><input id='edit-unit-row" + no + "' readonly type='number' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.unit + "'></td>"
                         el += "<td>"
                         el += "<button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-warning edit-barang'>Edit</button> <button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-danger hapus-barang'>Hapus</button>"
@@ -490,6 +492,8 @@
                 edit_harga_jual.val(tj)
                 edit_harga_jual.data('harga-jual', tjrp)
                 // console.log(tmrp)
+
+                $('.money').mask('000.000.000', {reverse: true});
             })
 
             $('#barang_transaksi').on('click', '.hapus-barang', async function(e) {
@@ -501,9 +505,18 @@
                 setHargaTransaksi()
             })
 
-            $('#save_data_pembeli').on('submit', async function(e) {
-                e.preventDefault()
-                $('#modalInputDataPembeli').modal('hide')
+            // $('#save_data_pembeli').on('submit', async function(e) {
+            //     e.preventDefault()
+            //     $('#modalInputDataPembeli').modal('hide')
+            //     var namaPembeli = $('#input_nama_pembeli').val()
+            //     var noTelp = $('#input_no_telp').val()
+            //     var alamat = $('#input_alamat').val()
+
+            //     await saveDataPembeli(namaPembeli, noTelp, alamat)
+            //     setDataPembeli()
+            // })
+
+            $('#btn-save-pembeli').on('click', async function(e) {
                 var namaPembeli = $('#input_nama_pembeli').val()
                 var noTelp = $('#input_no_telp').val()
                 var alamat = $('#input_alamat').val()

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barang;
+use App\Models\st_Barang;
 use Illuminate\Http\Request;
 
-class BarangController extends Controller
+class st_BarangController extends Controller
 {
     /**
      * Display a listing of the resource.

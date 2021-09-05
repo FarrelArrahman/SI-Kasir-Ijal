@@ -3,9 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Helpers\PerhitunganTransaksi;
+use App\Helpers\st_PerhitunganTransaksi;
 
-class TransaksiLaporanResource extends JsonResource
+class st_TransaksiLaporanResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,7 @@ class TransaksiLaporanResource extends JsonResource
      */
     public function toArray($request)
     {
-        $perhitunganTransaksi = new PerhitunganTransaksi();
+        $perhitunganTransaksi = new st_PerhitunganTransaksi();
         $perhitunganTransaksi->handle($this->detailTransaksi);
 
         return [

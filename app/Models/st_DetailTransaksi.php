@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class st_DetailTransaksi extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang';
+    protected $table = 'detail_transaksi';
     public $primaryKey = 'id';
+    public $timestamps = false;
 
     protected $fillable = [
-        'nama_barang',
-        'harga_jual',
-        'harga_modal',
+        'id_transaksi',
+        'id_barang',
+        'unit',
     ];
 
     /**
@@ -35,4 +36,14 @@ class Barang extends Model
     protected $casts = [
         // 
     ];
+
+    public function barang()
+    {
+        return $this->belongsTo(st_Barang::class, 'id_barang', 'id');
+    }
+
+    public function transaksi()
+    {
+        return $this->belongsTo(st_Transaksi::class, 'id_transaksi', 'id');
+    }
 }

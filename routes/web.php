@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\LaporanKeuanganController;
+use App\Http\Controllers\st_TransaksiController;
+use App\Http\Controllers\st_LaporanKeuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,6 @@ use App\Http\Controllers\LaporanKeuanganController;
 |
 */
 
-Route::get('/', [TransaksiController::class, 'index'])->name('transaksi_pembelian');
-Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'edit'])->name('edit_transaksi_pembelian');
-Route::get('/laporan-keuangan', [LaporanKeuanganController::class, 'index'])->name('index_laporan_keuangan');
+Route::get('/', [st_TransaksiController::class, 'index'])->name('transaksi_pembelian');
+Route::get('/transaksi/{transaksi}', [st_TransaksiController::class, 'edit'])->name('edit_transaksi_pembelian');
+Route::get('/laporan-keuangan', [st_LaporanKeuanganController::class, 'index'])->name('index_laporan_keuangan');

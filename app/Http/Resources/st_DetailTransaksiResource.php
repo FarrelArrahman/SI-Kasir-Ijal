@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\BarangResource;
 
-class DetailTransaksiResource extends JsonResource
+class st_DetailTransaksiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

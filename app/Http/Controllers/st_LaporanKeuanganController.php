@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barang;
-use App\Models\Transaksi;
-use App\Models\DetailTransaksi;
+use App\Models\st_Barang;
+use App\Models\st_Transaksi;
+use App\Models\st_DetailTransaksi;
 use Illuminate\Http\Request;
 use DB;
 
-class LaporanKeuanganController extends Controller
+class st_LaporanKeuanganController extends Controller
 {
     public function index()
     {
-    	$transaksi = Transaksi::all();
+    	$transaksi = st_Transaksi::all();
     	$month = [
     		// '0' => 'Semua Bulan',
     		'1' => 'Januari',
@@ -37,6 +37,6 @@ class LaporanKeuanganController extends Controller
     		}
     	}
 
-    	return view('laporan_keuangan.index', compact('month', 'year'));
+    	return view('st_laporan_keuangan.index', compact('month', 'year'));
     }
 }
