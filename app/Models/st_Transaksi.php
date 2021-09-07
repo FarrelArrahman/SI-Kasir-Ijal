@@ -19,6 +19,7 @@ class st_Transaksi extends Model
     protected $fillable = [
         'id',
         'tanggal',
+        'id_cabang',
         'nama_pembeli',
         'no_telp',
         'alamat',
@@ -46,5 +47,10 @@ class st_Transaksi extends Model
     public function detailTransaksi()
     {
         return $this->hasMany(st_DetailTransaksi::class, 'id_transaksi');
+    }
+
+    public function cabang()
+    {
+        return $this->belongsTo(st_Cabang::class, 'id_cabang', 'id');
     }
 }

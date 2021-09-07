@@ -8,12 +8,20 @@
                 </div> -->
 
                 <div class="d-flex row pt-3 pb-2 mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <h1 class="h2">Laporan Keuangan</h1>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <form class="row gy-2 gx-3 align-items-center">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <label class="visually-hidden" for="month">Cabang</label>
+                                    <select class="form-select" id="branch">
+                                        @foreach($cabang as $value)
+                                        <option value="{{ $value->id }}">{{ $value->nama_cabang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
                                     <label class="visually-hidden" for="month">Month</label>
                                     <select class="form-select" id="month">
                                         @foreach($month as $key => $value)
@@ -21,7 +29,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="visually-hidden" for="year">Year</label>
                                     <select class="form-select" id="year">
                                         @foreach($year as $value)
@@ -29,7 +37,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="visually-hidden" for="type">Type</label>
                                     <select class="form-select bg-primary text-white" id="type">
                                         <option value="income" selected>Pemasukan</option>
@@ -233,19 +241,21 @@
         $('#table_pengeluaran').hide()
         
         $(document).ready(function() {
+            var branch = $('#branch').val()
             var month = $('#month').val()
             var year = $('#year').val()
             var type = $('#type').val()
             var table = $("#table-laporan").DataTable()
 
-            async function getTransaksiLaporan(month, year, type) {
+            async function getTransaksiLaporan(branch, month, year, type) {
                 const param = {
+                    branch: branch,
                     month: month,
                     year: year,
                     type: type 
                 }
 
-                var url = `{{ route('transaksi_laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}`
+                var url = `{{ route('transaksi_laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}&branch=${encodeURIComponent(param.branch)}`
 
                 table.destroy()
 
@@ -271,14 +281,15 @@
                 })
             }
 
-            async function getLaporanKeuangan(month, year, type) {
+            async function getLaporanKeuangan(branch, month, year, type) {
                 const param = {
+                    branch: branch,
                     month: month,
                     year: year,
                     type: type 
                 }
 
-                var url = `{{ route('laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}`
+                var url = `{{ route('laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}&branch=${encodeURIComponent(param.branch)}`
 
                 try {
                     let response = await fetch(url)
@@ -294,8 +305,8 @@
                 }
             }
 
-            async function setLaporanKeuangan(month, year, type) {
-                var laporan = await getLaporanKeuangan(month, year, type)
+            async function setLaporanKeuangan(branch, month, year, type) {
+                var laporan = await getLaporanKeuangan(branch, month, year, type)
                 
                 if( ! jQuery.isEmptyObject(laporan)) {    
                     $('#total_modal').text(laporan.total_modal)
@@ -408,23 +419,29 @@
                 })
                 .catch(err => console.log(err))
 
-                getTransaksiLaporan(month, year, type)
-                setLaporanKeuangan(month, year, type)
+                getTransaksiLaporan(branch, month, year, type)
+                setLaporanKeuangan(branch, month, year, type)
             }
 
-            getTransaksiLaporan(month, year, type)
-            setLaporanKeuangan(month, year, type)
+            getTransaksiLaporan(branch, month, year, type)
+            setLaporanKeuangan(branch, month, year, type)
+
+            $('#branch').on('change', function() {
+                branch = $(this).val()
+                getTransaksiLaporan(branch, month, year, type)
+                setLaporanKeuangan(branch, month, year, type)
+            })
 
             $('#month').on('change', function() {
                 month = $(this).val()
-                getTransaksiLaporan(month, year, type)
-                setLaporanKeuangan(month, year, type)
+                getTransaksiLaporan(branch, month, year, type)
+                setLaporanKeuangan(branch, month, year, type)
             })
 
             $('#year').on('change', function() {
                 year = $(this).val()
-                getTransaksiLaporan(month, year, type)
-                setLaporanKeuangan(month, year, type)
+                getTransaksiLaporan(branch, month, year, type)
+                setLaporanKeuangan(branch, month, year, type)
             })
 
             $('#type').on('change', function() {
@@ -440,8 +457,8 @@
                     $('#table_pengeluaran').hide()
                     $('#table_pemasukan').show()
                 }
-                getTransaksiLaporan(month, year, type)
-                setLaporanKeuangan(month, year, type)
+                getTransaksiLaporan(branch, month, year, type)
+                setLaporanKeuangan(branch, month, year, type)
             })
 
             $('#table-laporan').on('click', '.delete_transaksi', async function(e) {

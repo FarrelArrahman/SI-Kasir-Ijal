@@ -125,6 +125,7 @@ class st_TransaksiAPIController extends Controller
 
         if($transaksi) {
             $transaksi->update([
+                'id_cabang' => $request->id_cabang,
                 'nama_pembeli' => $request->nama_pembeli,
                 'no_telp' => $request->no_telp,
                 'alamat' => $request->alamat,
@@ -134,6 +135,7 @@ class st_TransaksiAPIController extends Controller
             st_Transaksi::create([
                 'id' => $request->id_transaksi,
                 'tanggal' => $request->tanggal,
+                'id_cabang' => $request->id_cabang,
                 'nama_pembeli' => $request->nama_pembeli,
                 'no_telp' => $request->no_telp,
                 'alamat' => $request->alamat,

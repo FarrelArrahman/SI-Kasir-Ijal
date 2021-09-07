@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\st_Barang;
+use App\Models\st_Cabang;
 use App\Models\st_Transaksi;
 use App\Models\st_DetailTransaksi;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ class st_LaporanKeuanganController extends Controller
 {
     public function index()
     {
+        $cabang = st_Cabang::where('status', 1)->get();
     	$transaksi = st_Transaksi::all();
     	$month = [
     		// '0' => 'Semua Bulan',
@@ -37,6 +39,6 @@ class st_LaporanKeuanganController extends Controller
     		}
     	}
 
-    	return view('st_laporan_keuangan.index', compact('month', 'year'));
+    	return view('st_laporan_keuangan.index', compact('cabang', 'month', 'year'));
     }
 }

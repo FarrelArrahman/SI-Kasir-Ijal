@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\st_CabangAPIController;
 use App\Http\Controllers\API\st_TransaksiAPIController;
 use App\Http\Controllers\API\st_LaporanKeuanganAPIController;
 
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function() {
+	// Transaksi Pembelian
 	Route::get('/transaksi/id', [st_TransaksiAPIController::class, 'getIdTransaksi'])->name('id_transaksi');
 	Route::get('/transaksi/id/{tanggal}', [st_TransaksiAPIController::class, 'getIdTransaksiByTanggal'])->name('id_transaksi_by_tanggal');
 	Route::get('/transaksi/{transaksi}', [st_TransaksiAPIController::class, 'getBarangTransaksi'])->name('get_barang_transaksi');
@@ -36,4 +38,7 @@ Route::prefix('v1')->group(function() {
 	// Laporan Keuangan
 	Route::get('/transaksi-laporan-keuangan', [st_LaporanKeuanganAPIController::class, 'transaksiLaporanKeuangan'])->name('transaksi_laporan_keuangan');
 	Route::get('/laporan-keuangan', [st_LaporanKeuanganAPIController::class, 'laporanKeuangan'])->name('laporan_keuangan');
+
+	// Cabang
+	Route::get('/cabang', [st_CabangAPIController::class, 'getListCabang'])->name('get_list_cabang');
 });

@@ -13,6 +13,8 @@
                     <div class="col-md-5 col-lg-4 order-md-last">
                         <h4 class="d-flex justify-content-between align-items-center mb-3" id="id_transaksi">
                         </h4>
+                        <h6 class="d-flex justify-content-between align-items-center mb-3" id="cabang">
+                        </h6>
                     </div>
                   
                     <div class="col-md-7 col-lg-8">
@@ -155,6 +157,11 @@
                             <label for="input_alamat" class="col-form-label">Alamat</label>
                             <textarea class="form-control" id="input_alamat"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="input_cabang" class="col-form-label">Cabang</label>
+                            <select class="form-select" id="input_cabang">
+                            </select>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -168,9 +175,10 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.money').mask('000.000.000', {reverse: true});
+            $('.money').mask('000.000.000', {reverse: true})
 
-            var isEditingMode = false;
+            var isEditingMode = false
+            var idCabangList
 
             async function getIdTransaksi() {
                 return "{{ $transaksi->id }}"
@@ -183,6 +191,43 @@
                 $('#id_transaksi').append(el)
             }
 
+            async function getListCabang(url) {
+                var url = "{{ route('get_list_cabang') }}/"
+                try {
+                    let response = await fetch(url)
+
+                    if(response.status === 200) {
+                        let result = await response.json()
+                        return result.data
+                    }
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            async function setListCabang() {
+                var cabang = await getListCabang()
+                var el = ""
+                // console.log(cabang)
+                $('#input_cabang').empty()
+
+                // el += "<option disabled selected>-- Pilih Cabang --</option>"
+                
+                if( ! jQuery.isEmptyObject(cabang)) 
+                {
+                    cabang.forEach((item) => {
+                        el += "<option"
+                        el += (idCabangList == item.id) ? " selected " : " "
+                        el += "value='" + item.id + "'>"
+                        el += item.kode_cabang
+                        el += "</option>"
+                    })
+                    console.log(el)
+                }
+                
+                $('#input_cabang').append(el)
+            }
 
             async function getBarangTransaksi() {
                 var id_transaksi = await getIdTransaksi()
@@ -258,7 +303,10 @@
                 var pembeli = await getDataPembeli()
                 // console.log(pembeli.pembeli)
 
-                if( ! jQuery.isEmptyObject(pembeli.pembeli)) {    
+                if( ! jQuery.isEmptyObject(pembeli.pembeli)) {
+                    idCabangList = pembeli.pembeli.cabang.id
+                    $('#cabang').text("Customer: " + pembeli.pembeli.cabang.nama_cabang)
+
                     $('#nama_pembeli').text(pembeli.pembeli.nama_pembeli)
                     $('#no_telp').text(pembeli.pembeli.no_telp)
                     $('#alamat').text(pembeli.pembeli.alamat)
@@ -267,6 +315,9 @@
                     $('#input_no_telp').val(pembeli.pembeli.no_telp)
                     $('#input_alamat').val(pembeli.pembeli.alamat)
                 } else {
+                    idCabangList = 0
+                    $('#cabang').text("")
+
                     $('#nama_pembeli').text("")
                     $('#no_telp').text("")
                     $('#alamat').text("")
@@ -275,6 +326,8 @@
                     $('#input_no_telp').val("")
                     $('#input_alamat').val("")
                 }
+
+                setListCabang()
             }
 
             async function clearDataPembeli() {
@@ -345,13 +398,14 @@
                 .catch(err => console.log(err))
             }
 
-            async function saveDataPembeli(namaPembeli, noTelp, alamat) {
+            async function saveDataPembeli(idCabang, namaPembeli, noTelp, alamat) {
                 var id_transaksi = await getIdTransaksi()
                 var url = "{{ route('save_data_pembeli', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}",
                     id_transaksi: id_transaksi,
+                    id_cabang: idCabang,
                     nama_pembeli: namaPembeli,
                     no_telp: noTelp,
                     alamat: alamat,
@@ -517,11 +571,13 @@
             // })
 
             $('#btn-save-pembeli').on('click', async function(e) {
+                var idCabang = $('#input_cabang').val()
+                console.log(idCabang);
                 var namaPembeli = $('#input_nama_pembeli').val()
                 var noTelp = $('#input_no_telp').val()
                 var alamat = $('#input_alamat').val()
 
-                await saveDataPembeli(namaPembeli, noTelp, alamat)
+                await saveDataPembeli(idCabang, namaPembeli, noTelp, alamat)
                 setDataPembeli()
             })
 

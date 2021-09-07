@@ -15,10 +15,11 @@ class st_PembeliResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_transaksi'      => $this->id,
-            'nama_pembeli'      => $this->nama_pembeli,
-            'no_telp'           => $this->no_telp,
-            'alamat'            => $this->alamat,
+            'id_transaksi'  => $this->id,
+            'cabang'        => $this->cabang,
+            'nama_pembeli'  => $this->nama_pembeli,
+            'no_telp'       => $this->no_telp,
+            'alamat'        => $this->alamat,
         ];
     }
 }
