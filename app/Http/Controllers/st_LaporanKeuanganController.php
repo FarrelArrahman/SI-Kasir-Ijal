@@ -41,4 +41,34 @@ class st_LaporanKeuanganController extends Controller
 
     	return view('st_laporan_keuangan.index', compact('cabang', 'month', 'year'));
     }
+    public function pemasukan_musi()
+    {
+        $cabang = st_Cabang::where('status', 1)->get();
+    	$transaksi = st_Transaksi::all();
+    	$month = [
+    		// '0' => 'Semua Bulan',
+    		'1' => 'Januari',
+    		'2' => 'Februari',
+    		'3' => 'Maret',
+    		'4' => 'April',
+    		'5' => 'Mei',
+    		'6' => 'Juni',
+    		'7' => 'Juli',
+    		'8' => 'Agustus',
+    		'9' => 'September',
+    		'10' => 'Oktober',
+    		'11' => 'November',
+    		'12' => 'Desember',
+    	];
+
+    	$year = [];
+
+    	foreach ($transaksi as $value) {
+    		if( ! in_array($value->tanggal->format('Y'), $year)) {
+    			$year[] = $value->tanggal->format('Y');
+    		}
+    	}
+
+    	return view('st_laporan_keuangan.penjualan-musi', compact('cabang', 'month', 'year'));
+    }
 }

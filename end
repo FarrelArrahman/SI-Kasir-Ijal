@@ -1,0 +1,29 @@
+[33mcommit 105fd2422c2f72821c1c833d4171065c0e464a45[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: FarrelArrahman <arrahman_farrel@yahoo.com>
+Date:   Sun Sep 5 09:12:56 2021 +0800
+
+    Changed class name and add input mask for money
+
+[33mcommit 5cf9f942a5195237390f6bd5208d84b2813fb26c[m
+Author: ferrizal20 <ferrizal20@gmail.com>
+Date:   Sat Sep 4 18:42:09 2021 +0800
+
+    ferrizal20
+
+[33mcommit 3e524581b33ffed450dc55b6318cd9bce65f9f14[m
+Author: FarrelArrahman <arrahman_farrel@yahoo.com>
+Date:   Sat Sep 4 10:58:20 2021 +0800
+
+    Add pemasukan kotor and pembagian pemasukan bersih
+
+[33mcommit ee025926b951b636c146a30a589126c1004cb7af[m
+Author: ferrizal20 <ferrizal20@gmail.com>
+Date:   Sat Sep 4 10:35:38 2021 +0800
+
+    tambah fitur laporan
+
+[33mcommit 6af9636dcdef00097d905ccdea3f8fdab1c4ebee[m[33m ([m[1;34mgrafted[m[33m)[m
+Author: FarrelArrahman <arrahman_farrel@yahoo.com>
+Date:   Fri Sep 3 03:53:44 2021 +0800
+
+    Add laporan keuangan and show/edit/delete transaksi

@@ -8,12 +8,12 @@
                 </div> -->
 
                 <div class="d-flex row pt-3 pb-2 mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <h1 class="h2">Laporan Keuangan</h1>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <form class="row gy-2 gx-3 align-items-center">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label class="visually-hidden" for="month">Cabang</label>
                                     <select class="form-select" id="branch">
                                         @foreach($cabang as $value)
@@ -21,7 +21,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label class="visually-hidden" for="month">Month</label>
                                     <select class="form-select" id="month">
                                         @foreach($month as $key => $value)
@@ -29,7 +29,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label class="visually-hidden" for="year">Year</label>
                                     <select class="form-select" id="year">
                                         @foreach($year as $value)
@@ -37,19 +37,13 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-3">
-                                    <label class="visually-hidden" for="type">Type</label>
-                                    <select class="form-select bg-primary text-white" id="type">
-                                        <option value="income" selected>Pemasukan</option>
-                                        <option value="expenses">Pengeluaran</option>
-                                    </select>
-                                </div>
                             </form>
                         </div>
                     </div>
 
                 <div class="row" id="pemasukan">
-                    <h1 align="center" class="h3">Laporan Pemasukan</h1>
+                    <h1 align="center" class="h3" id="title-musi">Laporan Pemasukan Musi</h1>
+                    <h1 align="center" class="h3" id="title-badung">Laporan Pemasukan Badung</h1>
                     <div class="col-md-6">
                         <div class="table-responsive mt-3">
                             <table class="table">
@@ -71,16 +65,16 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="pembagian-badung">
                         <div class="table-responsive mt-3">
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>Pembagian 1 60%</td>
+                                    <td>Pembagian 1 50%</td>
                                     <td id="pembagian1" width="30%" scope="col">Rp. 0</td>
                                 </tr>
                                 <tr>
-                                    <td>Pembagian 2 40%</td>
+                                    <td>Pembagian 2 50%</td>
                                     <td id="pembagian2">Rp. 0</td>
                                 </tr>
                                 </tbody>
@@ -94,26 +88,6 @@
                 </div>
 
 
-
-                <div class="row" id="pengeluaran">
-                    <h1 align="center" class="h3">Laporan Pengeluaran</h1>
-                    <div class="col-md-6">
-                        <div class="table-responsive mt-3">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <td>Total Pengeluaran</td>
-                                    <td id="total_pemasukan_kotor" width="30%" scope="col">Rp. 0</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <a href="{{ route('transaksi_pembelian') }}" class="btn btn-block btn-success d-grid">Input Pengeluaran</a>
-                    </div>
-                </div>
 
                 <div class="row mt-3" id="table_pemasukan">
                     <div class="col-md-12">
@@ -132,36 +106,6 @@
                                             <th>Total Harga</th>
                                             <th>Total Modal</th>
                                             <th>Keuntungan Bersih</th>
-                                            <th width="100px">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                </div>
-
-                <div class="row mt-3" id="table_pengeluaran">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h6 class="card-title">DataTable Pengeluaran</h6>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="table-laporan" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Tanggal</th>
-                                            <th>Nama</th>
-                                            <th>Harga</th>
-                                            <th>Unit</th>
-                                            <th>Total</th>
                                             <th width="100px">Action</th>
                                         </tr>
                                     </thead>
@@ -237,25 +181,23 @@
     </div>
 
     <script type="text/javascript">
-        $('#pengeluaran').hide()
-        $('#table_pengeluaran').hide()
+        $('#title-badung').hide()
+        $('#pembagian-badung').hide()
         
         $(document).ready(function() {
             var branch = $('#branch').val()
             var month = $('#month').val()
             var year = $('#year').val()
-            var type = $('#type').val()
             var table = $("#table-laporan").DataTable()
 
             async function getTransaksiLaporan(branch, month, year, type) {
                 const param = {
                     branch: branch,
                     month: month,
-                    year: year,
-                    type: type 
+                    year: year
                 }
 
-                var url = `{{ route('transaksi_laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}&branch=${encodeURIComponent(param.branch)}`
+                var url = `{{ route('transaksi_laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&branch=${encodeURIComponent(param.branch)}`
 
                 table.destroy()
 
@@ -281,15 +223,14 @@
                 })
             }
 
-            async function getLaporanKeuangan(branch, month, year, type) {
+            async function getLaporanKeuangan(branch, month, year) {
                 const param = {
                     branch: branch,
                     month: month,
-                    year: year,
-                    type: type 
+                    year: year
                 }
 
-                var url = `{{ route('laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&type=${encodeURIComponent(param.type)}&branch=${encodeURIComponent(param.branch)}`
+                var url = `{{ route('laporan_keuangan') }}?month=${encodeURIComponent(param.month)}&year=${encodeURIComponent(param.year)}&branch=${encodeURIComponent(param.branch)}`
 
                 try {
                     let response = await fetch(url)
@@ -305,8 +246,8 @@
                 }
             }
 
-            async function setLaporanKeuangan(branch, month, year, type) {
-                var laporan = await getLaporanKeuangan(branch, month, year, type)
+            async function setLaporanKeuangan(branch, month, year) {
+                var laporan = await getLaporanKeuangan(branch, month, year)
                 
                 if( ! jQuery.isEmptyObject(laporan)) {    
                     $('#total_modal').text(laporan.total_modal)
@@ -419,46 +360,39 @@
                 })
                 .catch(err => console.log(err))
 
-                getTransaksiLaporan(branch, month, year, type)
-                setLaporanKeuangan(branch, month, year, type)
+                getTransaksiLaporan(branch, month, year)
+                setLaporanKeuangan(branch, month, year)
             }
 
-            getTransaksiLaporan(branch, month, year, type)
-            setLaporanKeuangan(branch, month, year, type)
+            getTransaksiLaporan(branch, month, year)
+            setLaporanKeuangan(branch, month, year)
 
             $('#branch').on('change', function() {
                 branch = $(this).val()
-                getTransaksiLaporan(branch, month, year, type)
-                setLaporanKeuangan(branch, month, year, type)
+                if(branch=="2"){             
+                    $('#title-badung').show()
+                    $('#title-musi').hide()
+                    $('#pembagian-badung').show()
+                }else{                    
+                    $('#title-badung').hide()
+                    $('#title-musi').show()
+                    $('#pembagian-badung').hide()
+                }
+                getTransaksiLaporan(branch, month, year)
+                setLaporanKeuangan(branch, month, year)
+
             })
 
             $('#month').on('change', function() {
                 month = $(this).val()
-                getTransaksiLaporan(branch, month, year, type)
-                setLaporanKeuangan(branch, month, year, type)
+                getTransaksiLaporan(branch, month, year)
+                setLaporanKeuangan(branch, month, year)
             })
 
             $('#year').on('change', function() {
                 year = $(this).val()
-                getTransaksiLaporan(branch, month, year, type)
-                setLaporanKeuangan(branch, month, year, type)
-            })
-
-            $('#type').on('change', function() {
-                type = $(this).val()
-                if(type=="expenses"){
-                    $('#pengeluaran').show()
-                    $('#pemasukan').hide()
-                    $('#table_pengeluaran').show()
-                    $('#table_pemasukan').hide()
-                }else{
-                    $('#pengeluaran').hide()
-                    $('#pemasukan').show()
-                    $('#table_pengeluaran').hide()
-                    $('#table_pemasukan').show()
-                }
-                getTransaksiLaporan(branch, month, year, type)
-                setLaporanKeuangan(branch, month, year, type)
+                getTransaksiLaporan(branch, month, year)
+                setLaporanKeuangan(branch, month, year)
             })
 
             $('#table-laporan').on('click', '.delete_transaksi', async function(e) {

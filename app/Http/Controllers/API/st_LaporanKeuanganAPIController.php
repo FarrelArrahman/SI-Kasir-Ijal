@@ -22,14 +22,11 @@ class st_LaporanKeuanganAPIController extends Controller
     	$branch = $params['branch'];
         $month = $params['month'];
     	$year = $params['year'];
-    	$type = $params['type'];
 
     	if(isset($month) && isset($year)) {
-    		if(isset($type) && $type == "income") {
-    			if(isset($branch)) {
+    		if(isset($branch)) {    			 
                     $data = st_Transaksi::whereMonth('tanggal', $month)->whereYear('tanggal', $year)->where('id_cabang', $branch)->get();
                     $laporan = st_TransaksiLaporanResource::collection($data);
-                }
     		} else {
     			$laporan = [];
     		}
@@ -54,16 +51,13 @@ class st_LaporanKeuanganAPIController extends Controller
     	$branch = $params['branch'];
         $month = $params['month'];
     	$year = $params['year'];
-    	$type = $params['type'];
 
     	if(isset($month) && isset($year)) {
-    		if(isset($type) && $type == "income") {
-    			if(isset($branch)) {
+    		if(isset($branch)) {
                     $data = st_Transaksi::whereMonth('tanggal', $month)->whereYear('tanggal', $year)->where('id_cabang', $branch)->get();
                     $perhitunganLaporan->handle($data);
                     
                     $laporan = $perhitunganLaporan->getLaporan($month, $year);
-                }
     		} else {
     			$laporan = [];
     		}

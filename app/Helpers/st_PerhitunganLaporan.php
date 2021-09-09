@@ -79,12 +79,12 @@ class st_PerhitunganLaporan {
 	}
 	public function getPembagian1()
 	{
-		return $this->totalPemasukan * 0.6;
+		return $this->totalPemasukan * 0.5;
 	}
 
 	public function getPembagian2()
 	{
-		return $this->totalPemasukan * 0.4;
+		return $this->totalPemasukan * 0.5;
 	}
 
 	public function convertToRp($nominal)
