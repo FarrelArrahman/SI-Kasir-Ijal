@@ -9,7 +9,7 @@
 
                 <div class="d-flex row pt-3 pb-2 mb-3">
                         <div class="col-md-6">
-                            <h1 class="h2">Laporan Keuangan</h1>
+                            <h1 class="h2">Laporan Keuangan Stainless Bali</h1>
                         </div>
                         <div class="col-md-6">
                             <form class="row gy-2 gx-3 align-items-center">
