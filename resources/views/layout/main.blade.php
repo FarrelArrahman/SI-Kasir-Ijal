@@ -103,10 +103,10 @@
                                     <a class="nav-link" href="">
                                         Laporan Kas
                                     </a>
-                                    <a class="nav-link" href="{{url('/laporan-keuangan')}}">
+                                    <a class="nav-link" href="{{route('index_laporan_keuangan')}}">
                                         Pemasukan
                                     </a>
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="{{route('pengeluaran_stainless')}}">
                                         Pengeluaran
                                     </a>
                                 </nav>

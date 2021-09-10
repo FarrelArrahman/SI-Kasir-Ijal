@@ -18,4 +18,5 @@ use App\Http\Controllers\st_LaporanKeuanganController;
 Route::get('/transaksi_pembelian', [st_TransaksiController::class, 'index'])->name('transaksi_pembelian');
 Route::get('/transaksi/{transaksi}', [st_TransaksiController::class, 'edit'])->name('edit_transaksi_pembelian');
 Route::get('/', [st_LaporanKeuanganController::class, 'index'])->name('index_laporan_keuangan');
+Route::get('/pengeluaran-stainless', [st_LaporanKeuanganController::class, 'pengeluaran'])->name('pengeluaran_stainless');
 Route::get('/pemasukan-stainless-musi', [st_LaporanKeuanganController::class, 'pemasukan_musi'])->name('pemasukan-stainless-musi');

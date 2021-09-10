@@ -6,6 +6,9 @@ use App\Models\st_Barang;
 use App\Models\st_Cabang;
 use App\Models\st_Transaksi;
 use App\Models\st_DetailTransaksi;
+use App\Models\st_Barang_pengeluaran;
+use App\Models\st_Transaksi_pengeluaran;
+use App\Models\st_DetailTransaksi_pengeluaran;
 use Illuminate\Http\Request;
 use DB;
 
@@ -41,10 +44,9 @@ class st_LaporanKeuanganController extends Controller
 
     	return view('st_laporan_keuangan.index', compact('cabang', 'month', 'year'));
     }
-    public function pemasukan_musi()
+    public function pengeluaran()
     {
-        $cabang = st_Cabang::where('status', 1)->get();
-    	$transaksi = st_Transaksi::all();
+    	$transaksi = st_Transaksi_pengeluaran::all();
     	$month = [
     		// '0' => 'Semua Bulan',
     		'1' => 'Januari',
@@ -69,6 +71,6 @@ class st_LaporanKeuanganController extends Controller
     		}
     	}
 
-    	return view('st_laporan_keuangan.penjualan-musi', compact('cabang', 'month', 'year'));
+    	return view('st_laporan_keuangan.pengeluaran', compact('month', 'year'));
     }
 }
