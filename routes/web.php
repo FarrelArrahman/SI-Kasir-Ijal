@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\st_TransaksiController;
+use App\Http\Controllers\StTransaksiPengeluaranController;
 use App\Http\Controllers\st_LaporanKeuanganController;
 
 /*
@@ -16,6 +17,7 @@ use App\Http\Controllers\st_LaporanKeuanganController;
 */
 
 Route::get('/transaksi_pembelian', [st_TransaksiController::class, 'index'])->name('transaksi_pembelian');
+Route::get('/transaksi_pengeluaran', [StTransaksiPengeluaranController::class, 'index'])->name('transaksi_pengeluaran');
 Route::get('/transaksi/{transaksi}', [st_TransaksiController::class, 'edit'])->name('edit_transaksi_pembelian');
 Route::get('/', [st_LaporanKeuanganController::class, 'index'])->name('index_laporan_keuangan');
 Route::get('/pengeluaran-stainless', [st_LaporanKeuanganController::class, 'pengeluaran'])->name('pengeluaran_stainless');

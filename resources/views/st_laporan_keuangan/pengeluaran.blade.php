@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <a href="{{ route('transaksi_pembelian') }}" class="btn btn-block btn-success d-grid">Input Pemasukan</a>
+                        <a href="{{ route('transaksi_pengeluaran') }}" class="btn btn-block btn-success d-grid">Input Pemasukan</a>
                     </div>
                 </div>
 

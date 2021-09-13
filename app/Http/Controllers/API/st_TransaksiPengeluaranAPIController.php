@@ -11,7 +11,7 @@ use App\Http\Resources\st_PembeliPengeluaranResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class st_TransaksiAPIController extends Controller
+class st_TransaksiPengeluaranAPIController extends Controller
 {
     public function getIdTransaksi()
     {

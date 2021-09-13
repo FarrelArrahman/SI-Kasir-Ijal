@@ -47,8 +47,8 @@ Route::prefix('v1')->group(function() {
 	Route::get('/pengeluaran/id/{tanggal}', [st_TransaksiPengeluaranAPIController::class, 'getIdTransaksiByTanggal'])->name('id_transaksi_by_tanggal_pengeluaran');
 	Route::get('/pengeluaran/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'getBarangTransaksi'])->name('get_barang_transaksi_pengeluaran');
 	Route::post('/pengeluaran/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'addBarangTransaksi'])->name('add_barang_transaksi_pengeluaran');
-	Route::get('/pengeluaran_pembeli/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'getDataPembeli'])->name('get_data_pembeli_pengeluaran');
-	Route::post('/pengeluaran_pembeli/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'saveDataPembeli'])->name('save_data_pembeli_pengeluaran');
+	Route::get('/pengeluaran_toko/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'getDataToko'])->name('get_data_toko_pengeluaran');
+	Route::post('/pengeluaran_toko/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'saveDataToko'])->name('save_data_toko_pengeluaran');
 	Route::put('/pengeluaran/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'editBarangTransaksi'])->name('edit_barang_transaksi_pengeluaran');
 	Route::get('/pengeluaran_harga/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'getHargaTransaksi'])->name('get_harga_transaksi_pengeluaran');
 	Route::delete('/pengeluaran/{transaksi}', [st_TransaksiPengeluaranAPIController::class, 'deleteBarangTransaksi'])->name('delete_barang_transaksi_pengeluaran');
