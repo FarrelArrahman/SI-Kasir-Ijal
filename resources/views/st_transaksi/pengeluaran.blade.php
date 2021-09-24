@@ -87,7 +87,7 @@
 
                     <div class="col-md-8 mt-3">
                         <button id="simpan" class="btn btn-success float-end">Simpan</button>
-                        <button data-bs-toggle="modal" data-bs-target="#modalInputDataPembeli" style="margin-right: 5px" class="btn btn-warning float-end">Data Pembeli</button>
+                        <button data-bs-toggle="modal" data-bs-target="#modalInputDataToko" style="margin-right: 5px" class="btn btn-warning float-end">Data Toko</button>
                     </div>
                 </div>
             </main>
@@ -95,23 +95,23 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalInputDataPembeli" tabindex="-1" aria-labelledby="modalInputDataPembeliLabel" aria-hidden="true">
+    <div class="modal fade" id="modalInputDataToko" tabindex="-1" aria-labelledby="modalInputDataTokoLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="save_data_pembeli">
+                <form id="save_data_toko">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalInputDataPembeliLabel">Data Pembeli</h5>
+                    <h5 class="modal-title" id="modalInputDataTokoLabel">Data Toko</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                         <div class="mb-3">
-                            <label for="input_nama_pembeli" class="col-form-label">Nama Toko</label>
-                            <input type="text" class="form-control input-pembeli" id="input_nama_pembeli">
+                            <label for="input_nama_toko" class="col-form-label">Nama Toko</label>
+                            <input type="text" class="form-control input-toko" id="input_nama_toko">
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-save-pembeli">Simpan</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-save-toko">Simpan</button>
                 </div>
                 </form>
             </div>
@@ -126,7 +126,6 @@
 
             var isEditingMode = false
             var tanggal = $("#tanggal").val()
-            var idCabangList
 
             async function getIdTransaksi(url) {
                 var url = "{{ route('id_transaksi_pengeluaran') }}/" + tanggal
@@ -150,46 +149,10 @@
                 $('#id_transaksi').append(el)
             }
 
-            async function getListCabang(url) {
-                var url = "{{ route('get_list_cabang') }}/"
-                try {
-                    let response = await fetch(url)
-
-                    if(response.status === 200) {
-                        let result = await response.json()
-                        return result.data
-                    }
-
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-
-            async function setListCabang() {
-                var cabang = await getListCabang()
-                var el = ""
-                // console.log(cabang)
-                $('#input_cabang').empty()
-
-                // el += "<option disabled selected>-- Pilih Cabang --</option>"
-                
-                if( ! jQuery.isEmptyObject(cabang)) 
-                {
-                    cabang.forEach((item) => {
-                        el += "<option" 
-                        el += (idCabangList == item.id) ? " selected " : " "
-                        el += "value='" + item.id + "'>"
-                        el += item.kode_cabang
-                        el += "</option>"
-                    })
-                }
-                
-                $('#input_cabang').append(el)
-            }
 
             async function getBarangTransaksi() {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('get_barang_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('get_barang_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 try {
                     let response = await fetch(url)
@@ -239,9 +202,9 @@
                 $('#barang_transaksi').append(el)
             }
 
-            async function getDataPembeli() {
+            async function getDataToko() {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('get_data_pembeli', '') }}/" + id_transaksi
+                var url = "{{ route('get_data_toko_pengeluaran', '') }}/" + id_transaksi
 
                 try {
                     let response = await fetch(url)
@@ -257,35 +220,35 @@
                 }
             }
 
-            async function setDataPembeli() {
-                var pembeli = await getDataPembeli()
-                // console.log(pembeli.pembeli)
+            async function setDataToko() {
+                var toko = await getDataToko()
+                // console.log(toko.toko)
 
-                if( ! jQuery.isEmptyObject(pembeli.pembeli)) {
+                if( ! jQuery.isEmptyObject(toko.toko)) {
                     
-                    $('#nama_pembeli').text(pembeli.pembeli.nama_pembeli)
+                    $('#nama_toko').text(toko.toko.nama_toko)
 
-                    $('#input_nama_pembeli').val(pembeli.pembeli.nama_pembeli)
+                    $('#input_nama_toko').val(toko.toko.nama_toko)
                 } else {
 
-                    $('#nama_pembeli').text("")
+                    $('#nama_toko').text("")
 
-                    $('#input_nama_pembeli').val("")
+                    $('#input_nama_toko').val("")
                 }
 
                 setListCabang()
             }
 
-            async function clearDataPembeli() {
+            async function clearDataToko() {
 
-                $('#nama_pembeli').text("-")
+                $('#nama_toko').text("-")
 
-                $('#input_nama_pembeli').val("")
+                $('#input_nama_toko').val("")
             }
 
             async function getHargaTransaksi() {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('get_harga_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('get_harga_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 try {
                     let response = await fetch(url)
@@ -307,26 +270,21 @@
 
                 if(!jQuery.isEmptyObject(transaksi)) {
                     $('#total_harga').text(transaksi.total_harga_rp)
-                    $('#total_modal').text(transaksi.total_modal_rp)
-                    $('#keuntungan_bersih').text(transaksi.keuntungan_bersih_rp)
                 } else {
                     $('#total_harga').text("Rp. 0")
-                    $('#total_modal').text("Rp. 0")
-                    $('#keuntungan_bersih').text("Rp. 0")
                 }
                 
             }
 
-            async function addBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, tanggal) {
+            async function addBarangTransaksi(namaBarang, hargaSatuan, unit, tanggal) {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('add_barang_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('add_barang_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}",
                     id_transaksi: id_transaksi,
                     nama_barang: namaBarang,
-                    harga_jual: hargaJual,
-                    harga_modal: hargaModal,
+                    harga_satuan: hargaSatuan,
                     unit: unit,
                     tanggal: tanggal
                 }
@@ -341,14 +299,14 @@
                 .catch(err => console.log(err))
             }
 
-            async function saveDataPembeli(namaPembeli) {
+            async function saveDataToko(namaToko) {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('save_data_pembeli', '') }}/" + id_transaksi
+                var url = "{{ route('save_data_toko_pengeluaran', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}",
                     id_transaksi: id_transaksi,
-                    nama_pembeli: namaPembeli,
+                    nama_toko: namaToko,
                     tanggal: tanggal
                 }
 
@@ -364,7 +322,7 @@
 
             async function editBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, detailTransaksi) {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('edit_barang_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('edit_barang_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}",
@@ -388,7 +346,7 @@
 
             async function deleteBarangTransaksi(detailTransaksi) {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('delete_barang_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('delete_barang_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}",
@@ -407,7 +365,7 @@
 
             async function simpanTransaksi() {
                 var id_transaksi = await getIdTransaksi()
-                var url = "{{ route('simpan_transaksi', '') }}/" + id_transaksi
+                var url = "{{ route('simpan_transaksi_pengeluaran', '') }}/" + id_transaksi
 
                 let _data = {
                     _token: "{{ csrf_token() }}"
@@ -425,18 +383,17 @@
                 setIdTransaksi(tanggal)
                 setBarangTransaksi()
                 setHargaTransaksi()
-                clearDataPembeli()
+                clearDataToko()
             }
 
             $('#addBarangTransaksi').on('submit', async function(e) {
                 e.preventDefault();
                 var namaBarang = $('#namaBarang').val()
-                var hargaJual = $('#hargaJual').val()
-                var hargaModal = $('#hargaModal').val()
+                var hargaSatuan = $('#hargaSatuan').val()
                 var unit = $('#unit').val()
                 // console.log(tanggal)
 
-                await addBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, tanggal)
+                await addBarangTransaksi(namaBarang, hargaSatuab, unit, tanggal)
 
                 clearForm()
                 setBarangTransaksi(tanggal)
@@ -446,8 +403,7 @@
             function clearForm()
             {
                 $('#namaBarang').val("")
-                $('#hargaJual').val("")
-                $('#hargaModal').val("")
+                $('#hargaSatuan').val("")
                 $('#unit').val(1)
             }
 
@@ -457,11 +413,10 @@
 
                 if(!isEditingMode) {
                     var namaBarang = $('#edit-nama-barang-' + $(this).data('row')).val()
-                    var hargaJual = $('#edit-harga-jual-' + $(this).data('row')).val()
-                    var hargaModal = $('#edit-harga-modal-' + $(this).data('row')).val()
+                    var hargaSatuan = $('#edit-harga-satuan-' + $(this).data('row')).val()
                     var unit = $('#edit-unit-' + $(this).data('row')).val()
 
-                    await editBarangTransaksi(namaBarang, hargaJual, hargaModal, unit, detailTransaksi)
+                    await editBarangTransaksi(namaBarang, hargaSatuan, unit, detailTransaksi)
                     setBarangTransaksi()
                     setHargaTransaksi()
                 }
@@ -471,20 +426,13 @@
                 var isReadOnly = $('.' + $(this).data('row')).prop('readonly')
                 $('.' + $(this).data('row')).prop('readonly', !isReadOnly)
 
-                var edit_harga_modal = $('#edit-harga-modal-' + $(this).data('row'))
-                var edit_harga_jual = $('#edit-harga-jual-' + $(this).data('row'))
+                var edit_harga_satuan = $('#edit-harga-satuan-' + $(this).data('row'))
                 
-                var tmrp = edit_harga_modal.val()
-                var tm = edit_harga_modal.data('harga-modal')
+                var tmrp = edit_harga_satuan.val()
+                var tm = edit_harga_satuan.data('harga-satuan')
 
-                var tjrp = edit_harga_jual.val()
-                var tj = edit_harga_jual.data('harga-jual')
-
-                edit_harga_modal.val(tm)
-                edit_harga_modal.data('harga-modal', tmrp)
-
-                edit_harga_jual.val(tj)
-                edit_harga_jual.data('harga-jual', tjrp)
+                edit_harga_satuan.val(tm)
+                edit_harga_satuan.data('harga-satuan', tmrp)
 
                 $('.money').mask('000.000.000', {reverse: true});
 
@@ -500,22 +448,22 @@
                 setHargaTransaksi()
             })
 
-            // $('#save_data_pembeli').on('submit', async function(e) {
+            // $('#save_data_toko').on('submit', async function(e) {
             //     e.preventDefault()
-            //     $('#modalInputDataPembeli').modal('hide')
-            //     var namaPembeli = $('#input_nama_pembeli').val()
+            //     $('#modalInputDataToko').modal('hide')
+            //     var namaToko = $('#input_nama_toko').val()
             //     var noTelp = $('#input_no_telp').val()
             //     var alamat = $('#input_alamat').val()
 
-            //     await saveDataPembeli(namaPembeli, noTelp, alamat)
-            //     setDataPembeli()
+            //     await saveDataToko(namaToko, noTelp, alamat)
+            //     setDataToko()
             // })
 
-            $('#btn-save-pembeli').on('click', async function(e) {
-                var namaPembeli = $('#input_nama_pembeli').val()
+            $('#btn-save-toko').on('click', async function(e) {
+                var namaToko = $('#input_nama_toko').val()
 
-                await saveDataPembeli(namaPembeli)
-                setDataPembeli()
+                await saveDataToko(namaToko)
+                setDataToko()
             })
 
             $('#simpan').on('click', async function(e) {
@@ -534,7 +482,7 @@
             })
 
             setIdTransaksi()
-            setDataPembeli()
+            setDataToko()
             setBarangTransaksi()
             setHargaTransaksi()
 
@@ -543,7 +491,7 @@
                 tanggal = $(this).val()
                 console.log(tanggal)
                 setIdTransaksi(tanggal)
-                setDataPembeli()
+                setDataToko()
                 setBarangTransaksi()
                 setHargaTransaksi()
             })

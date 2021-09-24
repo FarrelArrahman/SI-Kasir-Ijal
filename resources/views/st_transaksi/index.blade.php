@@ -67,10 +67,11 @@
                             <tr>
                                 <th width="5%" scope="col">#</th>
                                 <th width="10%" scope="col">Date</th>
-                                <th width="30%" scope="col">Nama Barang</th>
-                                <th width="17.5%" scope="col">Harga Modal</th>
-                                <th width="17.5%" scope="col">Harga Jual</th>
+                                <th width="20%" scope="col">Nama Barang</th>
+                                <th width="12.5%" scope="col">Harga Modal</th>
+                                <th width="12.5%" scope="col">Harga Jual</th>
                                 <th width="7.5%" scope="col">Unit</th>
+                                <th width="12.5%" scope="col">Total Harga Jual</th>
                                 <th width="12.5%" scope="col">Action</th>
                             </tr>
                         </thead>
@@ -282,6 +283,7 @@
                         el += "<td><input id='edit-harga-modal-row" + no + "' data-harga-modal='" + item.harga_modal + "' readonly type='text' class='money form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_modal_rp + "'></td>"
                         el += "<td><input id='edit-harga-jual-row" + no + "' data-harga-jual='" + item.harga_jual + "' readonly type='text' class='money form-control-plaintext form-control-sm row" + no + "' value='" + item.harga_jual_rp + "'></td>"
                         el += "<td><input id='edit-unit-row" + no + "' readonly type='number' class='form-control-plaintext form-control-sm row" + no + "' value='" + item.unit + "'></td>"
+                        el += "<td align='center' class='money form-control-plaintext form-control-sm row" + no + "'>" + item.harga_jual * item.unit + "</td>"
                         el += "<td>"
                         el += "<button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-warning edit-barang'>Edit</button> <button data-detail-transaksi='" + item.id_detail_transaksi + "' data-row='row" + no + "' class='btn btn-sm btn-danger hapus-barang'>Hapus</button>"
                         el += "</td>"
@@ -380,10 +382,12 @@
                     $('#total_harga').text(transaksi.total_harga_rp)
                     $('#total_modal').text(transaksi.total_modal_rp)
                     $('#keuntungan_bersih').text(transaksi.keuntungan_bersih_rp)
+                    $('#total_harga_jual').text(transaksi.total_harga_jual_rp)
                 } else {
                     $('#total_harga').text("Rp. 0")
                     $('#total_modal').text("Rp. 0")
                     $('#keuntungan_bersih').text("Rp. 0")
+                    $('#total_harga_jual').text("Rp. 0")
                 }
                 
             }

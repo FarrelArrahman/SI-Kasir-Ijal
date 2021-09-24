@@ -19,7 +19,6 @@ class st_Transaksi_pengeluaran extends Model
     protected $fillable = [
         'id',
         'tanggal',
-        'id_cabang',
         'nama_toko',
         'status',
     ];

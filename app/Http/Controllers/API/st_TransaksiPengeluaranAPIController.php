@@ -98,25 +98,25 @@ class st_TransaksiPengeluaranAPIController extends Controller
     	]);
     }
 
-    public function getDataPembeli($transaksi)
+    public function getDataToko($transaksi)
     {
         $data = [
-            'pembeli' => NULL,
+            'toko' => NULL,
         ];
 
         $transaksi = st_Transaksi_pengeluaran::find($transaksi);
         
         if($transaksi) {
-            $data['pembeli'] = new st_PembeliPengeluaranResource($transaksi);
+            $data['toko'] = new st_PembeliPengeluaranResource($transaksi);
         }
 
         return response()->json([
-            'message' => 'Data pembeli',
+            'message' => 'Data toko',
             'data' => $data
         ]);
     }
 
-    public function saveDataPembeli(Request $request, $transaksi)
+    public function saveDataToko(Request $request, $transaksi)
     {
         // return response()->json(['data' => $request->all()]);
 
@@ -137,7 +137,7 @@ class st_TransaksiPengeluaranAPIController extends Controller
         } 
 
         return response()->json([
-            'message' => 'Data pembeli berhasil disimpan'
+            'message' => 'Data toko berhasil disimpan'
         ]);
     }
 

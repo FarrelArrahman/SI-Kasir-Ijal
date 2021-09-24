@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\st_CabangAPIController;
 use App\Http\Controllers\API\st_TransaksiAPIController;
 use App\Http\Controllers\API\st_LaporanKeuanganAPIController;
+use App\Http\Controllers\API\st_TransaksiPengeluaranAPIController;
 
 /*
 |--------------------------------------------------------------------------
