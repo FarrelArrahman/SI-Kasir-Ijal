@@ -414,7 +414,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #hero .carousel-indicators li {
   cursor: pointer;
-  background: ##ffc451;
+  background: #ffc451;
   overflow: hidden;
   border: 0;
   width: 12px;
