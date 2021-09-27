@@ -9,18 +9,21 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
   
-    <!-- Template Main CSS File -->
-    <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{{ asset('css/style.css')}}" rel="stylesheet">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('vendor/animate.css/animate.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('vendor/icofont/icofont.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
   <link href="{{ asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -37,28 +40,12 @@
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-      <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
-      </div>
-      <div class="social-links d-none d-md-flex align-items-center">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-      </div>
-    </div>
-  </section>
-
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1><a href="index.html">Eterna</a></h1>
+        <h1><a href="index.html">STAINLESS BALI</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -159,33 +146,181 @@
     <section id="featured" class="featured">
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="icon-box">
-              <i class="bi bi-card-checklist"></i>
-              <h3><a href="">Lorem Ipsum</a></h3>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+        <div class="menu-layanan">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="icon-box">
+                        <i class="bi bi-cart4"></i>
+                        <h3><a href="">Custom Stainless</a></h3>
+                        <p>accept the manufacture of new stainless in accordance with the request, budget, and shape.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="bi bi-tools"></i>
+                        <h3><a href="">Service</a></h3>
+                        <p>accept all forms of stainless service both used and new.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="bi-pencil-square"></i>
+                        <h3><a href="">Consultation</a></h3>
+                        <p>FREE! Open to the public for anyone who wants consultation related to stainless steel</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="bi bi-box"></i>
+                        <h3><a href="">Design Concept</a></h3>
+                        <p>provide concept ideas / designs in the form of drawings, 2D / 3D in the manufacture of stainless</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-bar-chart"></i>
-              <h3><a href="">Dolor Sitema</a></h3>
-              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-binoculars"></i>
-              <h3><a href="">Sed ut perspiciatis</a></h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div>
         </div>
 
       </div>
     </section><!-- End Featured Section -->
 
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Product Stainless</h2>
+          <p>STOCK PRODUCT</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-9">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-table">Table</li>
+              <li data-filter=".filter-sink">Sink</li>
+              <li data-filter=".filter-shelf">Shelf</li>
+              <li data-filter=".filter-Cabinet">Cabinet</li>
+              <li data-filter=".filter-Custom">Custom</li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <div class="input-group rounded d-grid gap-2 d-md-flex justify-content-md-end">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                    aria-describedby="search-addon" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-sink">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/D-sink3.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Double Sink</h4>
+                <p>Sink</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/D-sink3.png" data-gall="portfolioGallery" class="venobox" title="Double Sink"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/sink2')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-sink">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/s-sink1.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Single Sink</h4>
+                <p>Sink</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/s-sink1.png" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/sink1')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-sink">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/T-sink2.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Sink Table</h4>
+                <p>Sink</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/T-sink2.png" data-gall="portfolioGallery" class="venobox" title="Card 2"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/sink3')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-table">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/O-Table2lv1.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Work Table + Over Shelf</h4>
+                <p>Table</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/O-Table2lv2.png" data-gall="portfolioGallery" class="venobox" title="App 2"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/tabless4')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-table">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/1L-Table1.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Work Table 1 Level</h4>
+                <p>Table</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/1L-Table1.png" data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/tabless1lv')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-table">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/2L-Table1.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Work Table 2 Level</h4>
+                <p>Table</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/2L-Table1.png" data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/tabless2lv')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 portfolio-item filter-table ">
+            <div class="portfolio-wrap shadow-sm">
+              <img src="assets/img/produk/3L-Table1.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Work Table 3 Level</h4>
+                <p>Table</p>
+                <div class="portfolio-links">
+                  <a href="assets/img/produk/3L-Table1.png" data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+                  <a href="{{url('/tabless3lv')}}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <center>
+          <div class="d-grid gap-2 mx-auto" data-aos="fade-up" data-aos-delay="100">
+            <a href="{{url('/product')}}" class="btn btn-warning" role="button" style="color:white;">
+              See More Products >>
+            </a>
+          </div>
+        </center>
+
+      </div>
+    </section><!-- End Portfolio Section -->
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container">
@@ -216,63 +351,71 @@
       </div>
     </section><!-- End About Section -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
-      <div class="container">
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
 
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </div>
+        
+        
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+          <div class="col-lg-7 mb-5 mt-lg-0">
+  
+            <div>
+              <iframe style="border:0; width: 100%; height: 250px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.0765710030564!2d115.23806707794928!3d-8.684268615444969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd24175915728a7%3A0x19f1a93af2a7ba1!2ssb%20Stainless!5e0!3m2!1sid!2sid!4v1625457538179!5m2!1sid!2sid" frameborder="0" allowfullscreen></iframe>
             </div>
+            <div>
+              <iframe style="border:0; width: 100%; height: 250px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15776.675661265006!2d115.2303119!3d-8.6754814!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xedb4efe68e768ed0!2sSECOND%20BALI%20%7C%7C%20SB%20Stainless!5e0!3m2!1sid!2sid!4v1632734555840!5m2!1sid!2sid" frameborder="0" allowfullscreen></iframe>
+            </div>
+  
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+          <div class="col-lg-5">
+            <div class="info">
+              <div class="address">
+                <i class="icofont-google-map"></i>
+                <h4>Location:</h4>
+                    <p>Jl. Tukad Badung No.104, Renon, Denpasar Selatan<br>
+                      Kota Denpasar, Bali 80226 | Indonesia <br>
+                      <a href="https://goo.gl/maps/NekcsEDsG3pKZj638" target="_blank">Go to Location >></a></p><br>
+                    <p>Jl. Tukad Musi No.24, Renon, Denpasar Selatan<br>
+                      Kota Denpasar, Bali 80234 | Indonesia <br>
+                      <a href="https://goo.gl/maps/xeBJ7KegRLmwjQuP8" target="_blank">Go to Location >></a></p>
+              </div>
+
+              <div class="email">
+                <i class="icofont-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@sbstainless.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="icofont-phone"></i>
+                <h4>Call Or Whatsapp:</h4>
+                <p>+62 813 3833 2502</p>
+                <p>+62 813 3787 1717</p>
+              </div>
+              
+              <div class="sosial mt-4">
+                <h5>E-Commerce</h5>
+                <a href="https://www.instagram.com/pusatstainlessbali/" target="_blank" class=""><img src="assets/img/logo/logo-04.svg" alt=""></a>
+                <a href="" target="_blank"><img src="assets/img/logo/logo-01.svg" alt="" ></a>
+                <a href="https://www.instagram.com/pusatstainlessbali/" target="_blank" class=""><img src="assets/img/logo/logo-02.svg" alt="" ></a>
+                <a href="https://www.instagram.com/pusatstainlessbali/" target="_blank" class=""><img src="assets/img/logo/logo-03.svg" alt="" "></a>
+                
+              </div>
             </div>
+
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">Dele cardo</a></h4>
-              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Divera don</a></h4>
-              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-            </div>
-          </div>
 
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section><!-- End Contact Section -->
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
@@ -392,16 +535,16 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{ asset('vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{ asset('vendor/php-email-form/validate.js')}}"></script>
+  <script src="{{ asset('vendor/purecounter/purecounter.js')}}"></script>
+  <script src="{{ asset('vendor/swiper/swiper-bundle.min.js')}}"></script>
+  <script src="{{ asset('vendor/waypoints/noframework.waypoints.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{ asset('js/main.js')}}"></script>
 
 </body>
 
