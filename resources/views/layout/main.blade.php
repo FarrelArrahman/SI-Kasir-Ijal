@@ -79,6 +79,7 @@
                             <div class="collapse" id="collapseSBStainless" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{url('/portofolio')}}">Input Portofolio</a>
+                                    <a class="nav-link" href="{{url('/type')}}">Input Type</a>
                                     <a class="nav-link" href="{{url('/stok')}}">Input Stok</a>
                                     <a class="nav-link" href="{{url('/produk_custom')}}">Input Produk Custom</a>
                                 </nav>
