@@ -44,6 +44,7 @@ class st_LaporanKeuanganController extends Controller
 
     	return view('st_laporan_keuangan.index', compact('cabang', 'month', 'year'));
     }
+    
     public function pengeluaran()
     {
     	$transaksi = st_Transaksi_pengeluaran::all();
